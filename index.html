@@ -2,221 +2,26 @@
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ANTEMIS – Train your instinct</title>
 
-  <!-- Google Fonts (optional, mit Fallbacks) -->
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      /* Farben aus dem Mockup */
-      --bg-dark: #2f4650;     /* etwas heller als Screenshot für Kontrast */
-      --bg-darker:#293f48;
-      --text: #EAF2F6;
-      --muted:#BFD0D8;
-      --primary:#4FC3F7;      /* helles Cyan */
-      --accent:#FF7043;       /* warmes Orange */
-      --card:#365462;         /* Kachel-Hintergrund */
-      --card-hover:#3c5b6a;
-      --line:#6d8a97;
-      --focus:#9BE1FF;
-
-      --radius: 16px;
-      --shadow: 0 10px 30px rgba(0,0,0,.25);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--text);
-      background:
-        radial-gradient(1200px 600px at 80% 0%, #3b5967 0%, transparent 60%),
-        linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
-      background-attachment: fixed;
-    }
-    a{color:inherit;text-decoration:none}
-    .container{width:min(1200px, 92vw); margin-inline:auto}
-
-    /* Header */
-    header{
-      position:sticky; top:0; z-index:20;
-      backdrop-filter: saturate(140%) blur(8px);
-      background: color-mix(in srgb, var(--bg-dark) 70%, transparent);
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .nav{
-      display:flex; align-items:center; gap:28px; padding:14px 0;
-    }
-    .brand{
-      display:flex; align-items:center; gap:14px; margin-right:auto;
-      font-weight:800; letter-spacing:.08em; font-size:22px;
-    }
-    .brand .mark{
-      width:38px; height:22px; position:relative; display:inline-block;
-    }
-    .mark::before, .mark::after{
-      content:""; position:absolute; height:6px; border-radius:3px;
-      top:8px; left:0; right:0; background:var(--accent);
-      transform:translateX(-8px);
-    }
-    .mark::after{ background:var(--primary); width:24px; left:auto; right:0; transform:translateX(8px)}
-    nav a{opacity:.9}
-    nav a:hover{opacity:1}
-    .cta{
-      background:var(--accent); color:#fff; padding:10px 16px; border-radius:12px;
-      font-weight:700; box-shadow:var(--shadow); border:0; cursor:pointer;
-      transition:transform .12s ease, box-shadow .12s ease, background .2s ease;
-    }
-    .cta:hover{transform:translateY(-1px)}
-    .cta--ghost{
-      background:transparent; border:1px solid color-mix(in srgb, var(--text) 30%, transparent);
-      color:var(--text);
-    }
-
-    /* Hero */
-    .hero{
-      padding: clamp(40px, 8vw, 80px) 0 40px;
-      display:grid; grid-template-columns: 1.1fr .9fr; gap:40px; align-items:center;
-    }
-    .eyebrow{letter-spacing:.2em; text-transform:uppercase; color:var(--muted); font-weight:700; font-size:12px}
-    h1{font-size: clamp(36px, 5vw, 64px); line-height:1.05; margin:10px 0 10px}
-    .lead{color:var(--muted); font-size: clamp(16px, 2.1vw, 20px); max-width:48ch}
-    .hero-actions{display:flex; gap:14px; margin-top:24px; flex-wrap:wrap}
-
-    /* Mascot (SVG-Wrapper) */
-    .mascot{
-      aspect-ratio: 1/1; border-radius: 28px; position:relative; isolation:isolate;
-      background:
-        radial-gradient(240px 240px at 60% 35%, rgba(79,195,247,.20), transparent 70%),
-        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0));
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), 0 20px 60px rgba(0,0,0,.35);
-      display:flex; align-items:center; justify-content:center;
-    }
-    .glow{position:absolute; inset:-10%; pointer-events:none;
-      background: radial-gradient(closest-side, rgba(155,225,255,.35), rgba(155,225,255,0));
-      filter: blur(24px); opacity:.8;
-      z-index:-1; border-radius:30px;
-      animation: floatGlow 6s ease-in-out infinite;
-    }
-    @keyframes floatGlow{
-      0%,100%{transform:translateY(-6px)}
-      50%{transform:translateY(6px)}
-    }
-    .mascot svg{width:68%; max-width:380px; filter: drop-shadow(0 8px 24px rgba(79,195,247,.35));}
-
-    /* Sections */
-    section{padding: clamp(38px, 7vw, 70px) 0}
-    .section-title{
-      font-size: clamp(22px, 3.2vw, 32px); margin:0 0 18px;
-    }
-    .muted{color:var(--muted)}
-
-    /* Grid: Training */
-    .grid{
-      display:grid; gap:16px;
-      grid-template-columns: repeat(12, 1fr);
-    }
-    .card{
-      grid-column: span 4; min-height:114px; padding:18px;
-      background: linear-gradient(180deg, color-mix(in srgb, var(--card) 92%, transparent), color-mix(in srgb, var(--card) 86%, transparent));
-      border-radius: var(--radius);
-      border:1px solid rgba(255,255,255,.06);
-      box-shadow: 0 10px 20px rgba(0,0,0,.18);
-      transition: transform .14s ease, background .2s ease, border .2s ease;
-    }
-    .card:hover{transform: translateY(-2px); background: var(--card-hover)}
-    .card h3{margin:6px 0 6px; font-size:18px}
-    .card p{margin:0; color:var(--muted)}
-    .icon{
-      width:34px; height:34px; border-radius:9px; display:grid; place-items:center; font-size:18px;
-      background: color-mix(in srgb, var(--primary) 30%, transparent);
-      color: #e9fbff;
-    }
-
-    /* How it works */
-    .steps{
-      display:grid; gap:18px; grid-template-columns: repeat(4, 1fr);
-    }
-    .step{
-      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.07);
-      border-radius: var(--radius);
-      padding:18px; position:relative;
-    }
-    .step .num{
-      width:28px; height:28px; display:grid; place-items:center; border-radius:50%;
-      background: var(--primary); color:#053a4a; font-weight:800; margin-bottom:8px;
-    }
-    .quote{
-      margin-top:18px; font-style:italic; color:var(--muted);
-    }
-
-    /* Help strip */
-    .help{
-      display:grid; gap:16px; grid-template-columns: repeat(3, 1fr);
-    }
-    .help .help-card{
-      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-      border:1px solid rgba(255,255,255,.08);
-      border-radius: var(--radius);
-      padding:18px;
-      display:flex; gap:12px; align-items:center;
-    }
-    .help .help-card .help-icon{
-      width:44px; height:44px; border-radius:12px; display:grid; place-items:center; font-size:22px;
-      background: color-mix(in srgb, var(--primary) 18%, transparent);
-      color:#ddf7ff;
-    }
-
-    /* Footer */
-    footer{
-      padding:32px 0 60px; color:var(--muted);
-      border-top:1px solid rgba(255,255,255,.06);
-      background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.18));
-    }
-    .footer-grid{
-      display:grid; gap:18px; grid-template-columns: 2fr 1fr 1fr 1fr;
-    }
-    .foot-title{font-weight:700; color:var(--text); margin-bottom:10px}
-    .foot a{display:block; padding:6px 0; opacity:.9}
-    .foot a:hover{opacity:1; text-decoration:underline}
-
-    /* Responsiv */
-    @media (max-width: 980px){
-      .hero{grid-template-columns: 1fr; gap:24px}
-      .mascot{max-width:580px; margin-inline:auto}
-      .grid .card{grid-column: span 6}
-      .steps{grid-template-columns: repeat(2, 1fr)}
-      .help{grid-template-columns: 1fr}
-      .footer-grid{grid-template-columns: 1fr 1fr}
-    }
-    @media (max-width: 640px){
-      nav{display:none}
-      .grid .card{grid-column: span 12}
-      .steps{grid-template-columns: 1fr}
-      .footer-grid{grid-template-columns: 1fr}
-    }
-
-    /* Motion reduce */
-    @media (prefers-reduced-motion: reduce){
-      *{animation:none !important; transition:none !important}
-    }
-  </style>
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styleindex.css" />
 </head>
 <body>
 
   <!-- Header -->
   <header>
     <div class="container nav">
-      <!-- Ersetze den Brand-Block bei Bedarf durch dein Logo-SVG/PNG -->
-      <div class="brand" aria-label="ANTEMIS">
-        <span class="mark" aria-hidden="true"></span>
+      <div class="brand">
+        <span class="mark"></span>
         <span>ANTEMIS</span>
       </div>
 
-      <nav aria-label="Hauptnavigation">
+      <nav>
         <a href="#training">Lernen</a>
         <a href="#erleben">Erleben</a>
         <a href="#hilfe">Hilfe</a>
@@ -235,8 +40,8 @@
       <div class="eyebrow">Antemis</div>
       <h1>Train your instinct</h1>
       <p class="lead">
-        Lerne, ruhig zu bleiben – bevor es ernst wird. Dein digitales Training
-        für Sicherheit, Achtsamkeit und Selbstbehauptung.
+        Lerne, ruhig zu bleiben – bevor es ernst wird.  
+        Dein digitales Training für Sicherheit, Achtsamkeit und Selbstbehauptung.
       </p>
       <div class="hero-actions">
         <a class="cta" href="#training">Starte dein Training</a>
@@ -244,10 +49,9 @@
       </div>
     </div>
 
-    <!-- Maskottchen / Licht-Avatar als SVG -->
-    <div class="mascot" aria-hidden="true">
+    <div class="mascot">
       <div class="glow"></div>
-      <svg viewBox="0 0 300 360" role="img" aria-label="Licht-Avatar">
+      <svg viewBox="0 0 300 360">
         <defs>
           <radialGradient id="g1" cx="50%" cy="30%" r="65%">
             <stop offset="0%" stop-color="#d9f7ff"/>
@@ -259,16 +63,12 @@
             <stop offset="100%" stop-color="rgba(255,255,255,.5)"/>
           </linearGradient>
         </defs>
-        <!-- Aura -->
         <circle cx="150" cy="180" r="150" fill="url(#g1)"/>
-        <!-- Körper -->
         <path d="M150 80c36 0 65 29 65 65s-29 65-65 65-65-29-65-65 29-65 65-65Z" fill="url(#g2)" opacity=".95"/>
         <path d="M75 210c22-18 64-18 76-18s54 0 74 18c15 13 22 32 22 49 0 26-17 43-44 43H98c-29 0-45-19-45-43 0-17 8-36 22-49Z" fill="url(#g2)" opacity=".85"/>
-        <!-- Gesicht minimal -->
         <circle cx="125" cy="138" r="7" fill="#1a3440" opacity=".85"/>
         <circle cx="175" cy="138" r="7" fill="#1a3440" opacity=".85"/>
         <path d="M130 160c7 6 33 6 40 0" stroke="#1a3440" stroke-width="3" stroke-linecap="round" opacity=".75"/>
-        <!-- Mond-Signet -->
         <path d="M188 182c-16 0-29-13-29-29 0-9 4-17 10-22-17 2-30 16-30 33 0 18 15 33 33 33 17 0 31-13 33-30-6 6-11 9-17 9Z"
               fill="#dff9ff" opacity=".9"/>
       </svg>
@@ -279,44 +79,15 @@
   <section id="training">
     <div class="container">
       <h2 class="section-title">Dein Training</h2>
-      <p class="muted" style="margin-bottom:18px">Wähle ein Modul und starte mit interaktiven Szenarien.</p>
+      <p class="muted">Wähle ein Modul und starte mit interaktiven Szenarien.</p>
 
-      <div class="grid" role="list">
-        <article class="card" role="listitem">
-          <div class="icon" aria-hidden="true">🧠</div>
-          <h3>Selbstbewusst handeln</h3>
-          <p>Stärke zeigen & ruhig bleiben.</p>
-        </article>
-
-        <article class="card" role="listitem">
-          <div class="icon">💬</div>
-          <h3>Mobbing & Respekt</h3>
-          <p>Konflikte erkennen & lösen.</p>
-        </article>
-
-        <article class="card" role="listitem">
-          <div class="icon">❤️</div>
-          <h3>Grenzen setzen</h3>
-          <p>„Nein“ sagen und Hilfe holen.</p>
-        </article>
-
-        <article class="card" role="listitem">
-          <div class="icon">💻</div>
-          <h3>Cybergefahren verstehen</h3>
-          <p>Sicher im Netz unterwegs.</p>
-        </article>
-
-        <article class="card" role="listitem">
-          <div class="icon">🔐</div>
-          <h3>Sicher zuhause & unterwegs</h3>
-          <p>Alltagssituationen meistern.</p>
-        </article>
-
-        <article class="card" role="listitem">
-          <div class="icon">🤝</div>
-          <h3>Zivilcourage & Hilfe</h3>
-          <p>Für andere da sein – ohne Risiko.</p>
-        </article>
+      <div class="grid">
+        <article class="card"><div class="icon">🧠</div><h3>Selbstbewusst handeln</h3><p>Stärke zeigen & ruhig bleiben.</p></article>
+        <article class="card"><div class="icon">💬</div><h3>Mobbing & Respekt</h3><p>Konflikte erkennen & lösen.</p></article>
+        <article class="card"><div class="icon">❤️</div><h3>Grenzen setzen</h3><p>„Nein“ sagen und Hilfe holen.</p></article>
+        <article class="card"><div class="icon">💻</div><h3>Cybergefahren verstehen</h3><p>Sicher im Netz unterwegs.</p></article>
+        <article class="card"><div class="icon">🔐</div><h3>Sicher zuhause & unterwegs</h3><p>Alltagssituationen meistern.</p></article>
+        <article class="card"><div class="icon">🤝</div><h3>Zivilcourage & Hilfe</h3><p>Für andere da sein – ohne Risiko.</p></article>
       </div>
     </div>
   </section>
@@ -326,37 +97,21 @@
     <div class="container">
       <h2 class="section-title">So funktioniert ANTEMIS</h2>
       <div class="steps">
-        <div class="step">
-          <div class="num">1</div>
-          <strong>Erkenne die Situation</strong>
-          <p class="muted">Kurze, reale Szenen bilden echte Momente ab.</p>
-        </div>
-        <div class="step">
-          <div class="num">2</div>
-          <strong>Triff deine Entscheidung</strong>
-          <p class="muted">Wähle, wie du reagieren würdest.</p>
-        </div>
-        <div class="step">
-          <div class="num">3</div>
-          <strong>Verstehe dein Handeln</strong>
-          <p class="muted">Ami/Luné erklärt Optionen & Hintergründe.</p>
-        </div>
-        <div class="step">
-          <div class="num">4</div>
-          <strong>Werde sicherer – Schritt für Schritt</strong>
-          <p class="muted">Badges, Fortschritt & Reflexion stärken dich.</p>
-        </div>
+        <div class="step"><div class="num">1</div><strong>Erkenne die Situation</strong><p class="muted">Kurze, reale Szenen bilden echte Momente ab.</p></div>
+        <div class="step"><div class="num">2</div><strong>Triff deine Entscheidung</strong><p class="muted">Wähle, wie du reagieren würdest.</p></div>
+        <div class="step"><div class="num">3</div><strong>Verstehe dein Handeln</strong><p class="muted">Luné erklärt Optionen & Hintergründe.</p></div>
+        <div class="step"><div class="num">4</div><strong>Werde sicherer – Schritt für Schritt</strong><p class="muted">Badges, Fortschritt & Reflexion stärken dich.</p></div>
       </div>
       <p class="quote">„Ich habe gelernt, ruhig zu bleiben, statt zu erstarren.“</p>
     </div>
   </section>
 
   <!-- Mission -->
-  <section id="about" style="background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); border-block:1px solid rgba(255,255,255,.06)">
+  <section id="about">
     <div class="container">
       <h2 class="section-title">Schutz beginnt vorher</h2>
-      <p class="muted" style="max-width:70ch">
-        ANTEMIS verbindet moderne Lerntechnologie mit menschlichem Bewusstsein.
+      <p class="muted">
+        ANTEMIS verbindet moderne Lerntechnologie mit menschlichem Bewusstsein.  
         Sicherheit beginnt im Kopf – und mit Training wird sie zu deiner Stärke.
       </p>
     </div>
@@ -367,39 +122,18 @@
     <div class="container">
       <h2 class="section-title">Hilfe & Unterstützung</h2>
       <div class="help">
-        <div class="help-card">
-          <div class="help-icon">📞</div>
-          <div>
-            <strong>Notfallnummern</strong>
-            <p class="muted">Schnelle Hilfe im Ernstfall.</p>
-          </div>
-        </div>
-        <div class="help-card">
-          <div class="help-icon">💬</div>
-          <div>
-            <strong>Online-Beratung</strong>
-            <p class="muted">Vertraulich chatten & sprechen.</p>
-          </div>
-        </div>
-        <div class="help-card">
-          <div class="help-icon">📍</div>
-          <div>
-            <strong>Hilfe in deiner Nähe</strong>
-            <p class="muted">Anlaufstellen in deiner Region.</p>
-          </div>
-        </div>
+        <div class="help-card"><div class="help-icon">📞</div><div><strong>Notfallnummern</strong><p class="muted">Schnelle Hilfe im Ernstfall.</p></div></div>
+        <div class="help-card"><div class="help-icon">💬</div><div><strong>Online-Beratung</strong><p class="muted">Vertraulich chatten & sprechen.</p></div></div>
+        <div class="help-card"><div class="help-icon">📍</div><div><strong>Hilfe in deiner Nähe</strong><p class="muted">Anlaufstellen in deiner Region.</p></div></div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer role="contentinfo">
-    <div class="container footer-grid foot">
+  <footer>
+    <div class="container footer-grid">
       <div>
-        <div class="brand" style="margin:0 0 8px 0">
-          <span class="mark" aria-hidden="true"></span>
-          <span>ANTEMIS</span>
-        </div>
+        <div class="brand"><span class="mark"></span><span>ANTEMIS</span></div>
         <div>Train your instinct.</div>
       </div>
       <div>
@@ -423,17 +157,7 @@
     </div>
   </footer>
 
-  <script>
-    // Header-Hintergrund beim Scrollen leicht akzentuieren
-    const header = document.querySelector('header');
-    const onScroll = () => {
-      const scrolled = window.scrollY > 8;
-      header.style.background = scrolled
-        ? 'color-mix(in srgb, var(--bg-dark) 82%, transparent)'
-        : 'color-mix(in srgb, var(--bg-dark) 70%, transparent)';
-    };
-    window.addEventListener('scroll', onScroll, {passive:true});
-    onScroll();
-  </script>
+  <!-- Script -->
+  <script src="scriptindex.js"></script>
 </body>
 </html>
